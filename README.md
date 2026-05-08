@@ -1,73 +1,92 @@
-# React + TypeScript + Vite
+# WebMid Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript frontend application built for a university midterm project.  
+The project demonstrates routing, authentication flow, layout separation, and state management.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Tech Stack
 
-## React Compiler
+- React (Vite)
+- TypeScript
+- React Router DOM
+- LocalStorage (fake authentication)
+- Tailwind CSS (optional / partial usage)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🧠 Project Structure
+src/
+├── layouts/
+│ ├── AuthLayout.tsx
+│ └── MainLayout.tsx
+│
+├── pages/
+│ ├── auth/
+│ │ ├── Login.tsx
+│ │ └── Signup.tsx
+│ │
+│ ├── dashboard/
+│ ├── profile/
+│ └── settings/
+│
+├── routes/
+│ └── ProtectedRoute.tsx
+│
+├── services/
+│ └── auth.service.ts
+│
+├── App.tsx
+└── main.tsx
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🔐 Authentication Flow
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Authentication is simulated using `localStorage`
+- On login:
+  - `auth = true` is stored in localStorage
+- On logout:
+  - auth is removed
+- Protected routes block access if user is not authenticated
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧭 Routing System
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The application uses React Router with nested layouts:
+
+### Auth Layout
+- `/login`
+- `/signup`
+
+### Main Layout (Protected)
+- `/dashboard`
+- `/profile`
+- `/settings`
+
+---
+
+## 🛡️ Protected Routes
+
+A `ProtectedRoute` component checks authentication status before allowing access to the main application pages. If not authenticated, the user is redirected to `/login`.
+
+---
+
+## 📊 Features
+
+- Login / Signup pages (fake authentication)
+- Route protection system
+- Layout-based architecture
+- Dashboard with interactive state example
+- Profile and Settings pages
+- Logout functionality
+
+---
+
+## ⚙️ How to Run
+
+```bash
+npm install
+npm run dev
